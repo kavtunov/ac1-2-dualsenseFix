@@ -14,6 +14,10 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "stick_deadzone": 0.18,
     "trigger_threshold": 0.12,
     "camera_sensitivity": 1.0,
+    "touchpad_mouse": True,
+    "touchpad_sensitivity": 1.2,
+    "rumble_enabled": True,
+    "battery_led": True,
     "buttons": {
         "cross": "A",
         "circle": "B",
@@ -104,6 +108,12 @@ def normalize_config(data: dict[str, Any] | None = None) -> dict[str, Any]:
     cfg["camera_sensitivity"] = _clamp(
         float(data.get("camera_sensitivity", cfg["camera_sensitivity"])), 0.2, 2.5
     )
+    cfg["touchpad_mouse"] = bool(data.get("touchpad_mouse", cfg["touchpad_mouse"]))
+    cfg["touchpad_sensitivity"] = _clamp(
+        float(data.get("touchpad_sensitivity", cfg["touchpad_sensitivity"])), 0.2, 3.0
+    )
+    cfg["rumble_enabled"] = bool(data.get("rumble_enabled", cfg["rumble_enabled"]))
+    cfg["battery_led"] = bool(data.get("battery_led", cfg["battery_led"]))
 
     buttons = dict(cfg["buttons"])
     incoming = data.get("buttons") or {}

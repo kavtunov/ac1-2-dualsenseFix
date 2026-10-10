@@ -28,6 +28,10 @@ class SettingsApp(tk.Tk):
         self.deadzone_var = tk.DoubleVar(value=self.config_data["stick_deadzone"])
         self.trigger_var = tk.DoubleVar(value=self.config_data["trigger_threshold"])
         self.camera_var = tk.DoubleVar(value=self.config_data["camera_sensitivity"])
+        self.touchpad_mouse_var = tk.BooleanVar(value=self.config_data.get("touchpad_mouse", True))
+        self.touchpad_sens_var = tk.DoubleVar(value=self.config_data.get("touchpad_sensitivity", 1.2))
+        self.rumble_var = tk.BooleanVar(value=self.config_data.get("rumble_enabled", True))
+        self.battery_led_var = tk.BooleanVar(value=self.config_data.get("battery_led", True))
 
         self._build()
 
@@ -59,6 +63,20 @@ class SettingsApp(tk.Tk):
         self._add_scale(sens, "Deadzone", self.deadzone_var, 0.0, 0.6, 0)
         self._add_scale(sens, "Triggers", self.trigger_var, 0.0, 0.7, 1)
         self._add_scale(sens, "Camera", self.camera_var, 0.2, 2.5, 2)
+        self._add_scale(sens, "Touchpad", self.touchpad_sens_var, 0.2, 3.0, 3)
+
+        feat = ttk.LabelFrame(self, text="Features")
+        feat.pack(fill="x", padx=16, pady=(0, 12))
+
+        ttk.Checkbutton(feat, text="Enable Touchpad as Mouse", variable=self.touchpad_mouse_var).pack(
+            anchor="w", padx=8, pady=4
+        )
+        ttk.Checkbutton(feat, text="Enable Rumble (Force Feedback)", variable=self.rumble_var).pack(
+            anchor="w", padx=8, pady=4
+        )
+        ttk.Checkbutton(feat, text="DualSense Battery LED Indicator", variable=self.battery_led_var).pack(
+            anchor="w", padx=8, pady=4
+        )
 
         buttons = ttk.Frame(self)
         buttons.pack(fill="x", padx=16, pady=(0, 16))
@@ -100,6 +118,10 @@ class SettingsApp(tk.Tk):
             "stick_deadzone": float(self.deadzone_var.get()),
             "trigger_threshold": float(self.trigger_var.get()),
             "camera_sensitivity": float(self.camera_var.get()),
+            "touchpad_mouse": bool(self.touchpad_mouse_var.get()),
+            "touchpad_sensitivity": float(self.touchpad_sens_var.get()),
+            "rumble_enabled": bool(self.rumble_var.get()),
+            "battery_led": bool(self.battery_led_var.get()),
             "buttons": buttons,
         }
 
@@ -115,6 +137,10 @@ class SettingsApp(tk.Tk):
         self.deadzone_var.set(DEFAULT_CONFIG["stick_deadzone"])
         self.trigger_var.set(DEFAULT_CONFIG["trigger_threshold"])
         self.camera_var.set(DEFAULT_CONFIG["camera_sensitivity"])
+        self.touchpad_mouse_var.set(DEFAULT_CONFIG.get("touchpad_mouse", True))
+        self.touchpad_sens_var.set(DEFAULT_CONFIG.get("touchpad_sensitivity", 1.2))
+        self.rumble_var.set(DEFAULT_CONFIG.get("rumble_enabled", True))
+        self.battery_led_var.set(DEFAULT_CONFIG.get("battery_led", True))
 
 
 def main() -> None:

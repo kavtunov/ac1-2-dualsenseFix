@@ -3,4 +3,5 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
-exec python3 "$ROOT/ac1_settings.py"
+exec python3 "$ROOT/ac1_settings.py" "$@"
+

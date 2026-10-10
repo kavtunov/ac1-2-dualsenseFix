@@ -7,3 +7,9 @@ venv/
 .DS_Store
 *.amgp
 *.log
+build/
+dist/
+*.spec
+__pycache__/
+*.pyc
+
