@@ -132,8 +132,9 @@ def make_stick_normalizer(deadzone: float, sensitivity: float = 1.0):
             return 0
         sign = 1.0 if v > 0 else -1.0
         mag = (abs(v) - deadzone) / (1.0 - deadzone)
-        mag = min(1.0, mag * sensitivity)
-        return int(max(-AXIS_MAX, min(AXIS_MAX, sign * mag * AXIS_MAX)))
+        # Apply sensitivity scaling smoothly
+        scaled = sign * min(1.0, mag * sensitivity)
+        return int(max(-AXIS_MAX, min(AXIS_MAX, scaled * AXIS_MAX)))
 
     return norm_stick
 

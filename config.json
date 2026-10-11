@@ -1,7 +1,11 @@
 {
   "stick_deadzone": 0.18,
   "trigger_threshold": 0.12,
-  "camera_sensitivity": 1.0,
+  "camera_sensitivity": 0.65,
+  "touchpad_mouse": true,
+  "touchpad_sensitivity": 1.2,
+  "rumble_enabled": true,
+  "battery_led": true,
   "buttons": {
     "cross": "A",
     "circle": "B",

@@ -13,7 +13,7 @@ CONFIG_PATH = ROOT / "config.json"
 DEFAULT_CONFIG: dict[str, Any] = {
     "stick_deadzone": 0.18,
     "trigger_threshold": 0.12,
-    "camera_sensitivity": 1.0,
+    "camera_sensitivity": 0.75,
     "touchpad_mouse": True,
     "touchpad_sensitivity": 1.2,
     "rumble_enabled": True,
@@ -106,7 +106,7 @@ def normalize_config(data: dict[str, Any] | None = None) -> dict[str, Any]:
         float(data.get("trigger_threshold", cfg["trigger_threshold"])), 0.0, 0.9
     )
     cfg["camera_sensitivity"] = _clamp(
-        float(data.get("camera_sensitivity", cfg["camera_sensitivity"])), 0.2, 2.5
+        float(data.get("camera_sensitivity", cfg["camera_sensitivity"])), 0.05, 2.5
     )
     cfg["touchpad_mouse"] = bool(data.get("touchpad_mouse", cfg["touchpad_mouse"]))
     cfg["touchpad_sensitivity"] = _clamp(
